@@ -1,0 +1,63 @@
+---
+title: "Basic Concepts of Programming with R"
+subtitle: "Introductory Session"
+author: "Matthias Bannert"
+date: "2017/04/28"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+
+
+# whoami
+
+Barney
+
+
+# About this course: Goals
+
+- write program
+- make it run elsewhere
+=> learning by doing.
+listen - forget
+see - remember
+do - understand
+=> by writing our own package we understand how R works and what programming actually means. 
+=> collabo
+
+# Habits: researcher vs. professional developer
+
+
+# About this course: Organization
+- first intro: getting to your working environment
+- second friday: introduction to git, repeat the R basics, package structure, install devtools and co. 
+- first saturday: introduction to markdown, work on ideas, more R
+- third friday: more R, introduction to documentation with Roxygen
+- second saturday: presentations
+
+# About this course: Grading
+- work in groups (2-3 people)
+- write own R package
+- make a presentation to be held on last saturday morning
+- helping out others 
+
+
+
+
+
+
+
+
+
+
+
+
