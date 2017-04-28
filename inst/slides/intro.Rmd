@@ -50,8 +50,8 @@ fluidPage(sidebarLayout(sidebarPanel(
                     high = c(100,100,100),
                     target = c(techavg,techavg,techavg),
                     value = c(100*(input$rstats/input$members),
-                              100*(input$html/input$members),
-                              100*(input$shiny/input$members)
+                              100*(input$functions/input$members),
+                              100*(input$git/input$members)
                               )
                     )
 
@@ -76,9 +76,9 @@ fluidPage(sidebarLayout(sidebarPanel(
 
 - Sat, May 13: introduction to collaboration with git, how-to-package using R Studio, plotting with R
 
-- Fri, June: R Markdown and context aware documentation
+- Fri, June 16: R Markdown and context aware documentation
 
-- Sat, June: Working on own packages (workshop)
+- Sat, June 17: Working on own packages (workshop)
 
 - Assignments due: **August 31**
 
@@ -116,22 +116,6 @@ learning by doing:
 
 => collaboration
 
-
-## Habits: researcher vs. professional developer
-
-```{r}
-a <- 1
-b <- 2
-x <- 4
-d <- a+b
-o <- x*d
-o
-
-compute <- function(a,b,x) (a+b)*x
-compute(1,2,4)
-compute(3,2,1)
-
-```
 
 ## Inspiration
 
@@ -245,12 +229,36 @@ function()
 lapply()
 ```
 
+## Habits: researcher vs. professional developer
+
+```{r,eval = FALSE, echo = T}
+a <- 1
+b <- 2
+x <- 4
+d <- a+b
+o <- x*d
+o
+
+compute <- function(a,b,x) (a+b)*x
+compute(1,2,4)
+compute(3,2,1)
+
+```
+
+
 ## Are you familiar with your R Studio IDE?
 
 - .Rproj
 - script window
 - console
 - file browser
+
+
+## Beyond R: Collaborate like pro developers
+
+- version controlled development /w git and github
+
+- register to get a free account on [github.com](https://github.com/)
 
 
 ## Some introductory resources
@@ -260,9 +268,9 @@ lapply()
 
 - [stackoverflow user written documentation R](http://stackoverflow.com/documentation/r/topics)
 
+- [introduction to git](https://git-scm.com/book/en/v2/Getting-Started-Git-Basics)
 
-
-
+- [Interactive git learning challenge](https://try.github.io/levels/1/challenges/1)
 
 
 

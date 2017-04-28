@@ -1,0 +1,38 @@
+---
+title: "Let's Program"
+author: "Matthias Bannert"
+date: "28 Apr 2017"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Packaging in a nutshell
+
+- package: group of functions documented in context aware fashion  (?functionName)
+
+- folder based organization of source code: data, man,
+inst, src, R
+
+- compilation
+
+
+## Good habits: Snakes ... 
+
+- i_am_a_snake
+
+<div align="right">
+<img src="snake.png" alt="matthias bannert" style="width: 400px;"/></div>
+
+
+## and camels
+
+- jeSuisUnCamel
+
+<div align="right">
+<img src="camel.png" alt="matthias bannert" style="width: 400px;"/></div>
+
+
+
