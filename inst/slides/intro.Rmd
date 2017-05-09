@@ -72,11 +72,11 @@ fluidPage(sidebarLayout(sidebarPanel(
 
 - today: get to know each other, software set up, background check
 
-- Fri, May 12: discuss package ideas, First functions
+- Fri, May 12: discuss package ideas, First functions, R and data
 
 - Sat, May 13: introduction to collaboration with git, how-to-package using R Studio, plotting with R
 
-- Fri, June 16: R Markdown and context aware documentation
+- Fri, June 16: R Markdown and context aware documentation, Q&A
 
 - Sat, June 17: Working on own packages (workshop)
 
@@ -102,7 +102,8 @@ fluidPage(sidebarLayout(sidebarPanel(
 
 - write a package collaboaratively
 
-- make it run elsewhere
+- make stuff run elsewhere (deployment)
+
 
 ## About this course: Approach
 
@@ -122,6 +123,9 @@ learning by doing:
 - 10497 packages available on [CRAN](https://cran.r-project.org/)
 
 - [CRAN Task views](https://cran.r-project.org/web/views/) help to monitor packages
+
+- [WG SuchR](https://github.com/jansim/WG-SuchR) an interactive app by Jan Simson and Sophie Breunig developed during the BOAR course
+
 
 
 ## Before you start... 
@@ -248,10 +252,10 @@ compute(3,2,1)
 
 ## Are you familiar with your R Studio IDE?
 
-- .Rproj
 - script window
 - console
 - file browser
+- .Rproj
 
 
 ## Beyond R: Collaborate like pro developers
@@ -271,6 +275,8 @@ compute(3,2,1)
 - [introduction to git](https://git-scm.com/book/en/v2/Getting-Started-Git-Basics)
 
 - [Interactive git learning challenge](https://try.github.io/levels/1/challenges/1)
+
+- **!Tip**: Read other people's source code to learn!
 
 
 

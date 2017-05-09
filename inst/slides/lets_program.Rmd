@@ -3,21 +3,24 @@ title: "Let's Program"
 author: "Matthias Bannert"
 date: "28 Apr 2017"
 output: ioslides_presentation
+widescreen: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## Packaging in a nutshell
+## Get familiar with your working environment
 
-- package: group of functions documented in context aware fashion  (?functionName)
-
-- folder based organization of source code: data, man,
-inst, src, R
-
-- compilation
-
+- R Studio IDE
+- work with projects (.Rproj)
+- folder structure: 
+    - data 
+    - R
+    - man
+    - inst
+- conventions: avoid spaces, ugly characters in file names, ... 
+- comment on your work (why, not what !)
 
 ## Good habits: Snakes ... 
 
@@ -32,7 +35,92 @@ inst, src, R
 - jeSuisUnCamel
 
 <div align="right">
-<img src="camel.png" alt="matthias bannert" style="width: 400px;"/></div>
+<img src="camel.gif" alt="matthias bannert" style="width: 400px;"/></div>
 
+## Function definitions and function calls
+
+Define a function
+```{r,echo=T}
+# doUselessStuff = name
+# a,b,x input parameters
+# { function body }
+doUseLessStuff <- function(a,b,x){
+  (a + b)*x
+}
+```
+
+Run a function
+```{r,echo=T}
+doUseLessStuff(10,20,3)
+doUseLessStuff(10,30,3)
+```
+
+## Document a function with roxygen2
+
+```{r,eval=F,echo=T}
+#' Mickey Mouse computation
+#' 
+#' Sum of a and b multiplied by x. 
+#' 
+#' @author Matthias Bannert
+#' @param a numeric vector, first element of the sum
+#' @param b numeric vector, second element of the sum
+#' @param x numeric multiplier
+#' @examples doUselessStuff(10,20,10)
+#' 
+#' @return numeric 
+#' @export 
+doUseLessStuff <- function(a,b,x){
+  (a + b)*x
+}
+```
+
+## Applied R
+
+- lapply
+- anonymous functions
+- mlb practice
+- ggplot2 
+- 
+
+
+
+## Programming and data 
+
+- R specific binary (.RData)
+- text based standard (.csv, fixed width, .json)
+- propietary formats (.dta, .xlsx)
+- databases (PostgreSQL, SQL Server, Oracle, MySQL, Cassandra, MongoDB, sqlite, ...)
+
+=> task: find some interesting data and get in R! 
+
+- psychology
+- politics: French, U.S. elections
+- sports 
+- macroeconomics
+- geospatial data
+
+
+
+
+## Packaging in a nutshell
+
+- package: group of functions documented in context aware fashion  (?functionName)
+
+- folder based organization of source code: data, man,
+inst, src, R
+
+- compilation
+
+
+## Resources
+
+- [Roger D. Peng R Programming for Data Science](https://bookdown.org/rdpeng/rprogdatascience/r-nuts-and-bolts.html)
+
+- [Hadley Wickham Style Guide](http://adv-r.had.co.nz/Style.html)
+
+- [Hadley Wickham R Packages](http://r-pkgs.had.co.nz/)
+
+- [Official Documentation](https://cran.r-project.org/doc/manuals/r-release/R-exts.html)
 
 
