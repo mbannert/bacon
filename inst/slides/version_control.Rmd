@@ -1,0 +1,74 @@
+---
+title: "Version Control & Packaging & more"
+subtitle: "Organize & Collaborate Like a Hacker"
+author: "Matthias Bannert"
+date: "12 May 2017"
+widescreen: true
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## What is git?
+
+- git is a piece of software that runs on your computer
+- git is a *decentralized* version control system
+- state-of-the-art tool for controlling versions and collaboration among developers
+- [github](https://github.com/), [bitbucket](https://bitbucket.org/product) and [gitlab](https://about.gitlab.com/) are popular providers (free remote repos)
+
+## How does it work? 
+
+<img src="git-basic.png" width="500px">
+
+source: [ben-denham.github.io](http://ben-denham.github.io)
+
+## What do I need to remember?
+
+- git clone
+- git add (staging)
+- git commit -m 'What did we change in the new version'
+- git push
+- git pull
+- git status
+
+
+- git log
+- git checkout 
+- git branch
+- git remote -v
+
+## Why use git (in academia) ?
+
+- empirical researchers need to be more data savy than ever before, programming and reproducibility are highly demanded
+- version control has been part of professional software development collaborations for decades, more and more fields use it to collaborate 
+- git is the state-of-the-art for modern version control
+
+## Let's try the following
+
+1.) Form 2 groups
+
+2.) Every group member needs a github account
+
+3.) assign one leader per group
+
+4.) leader creates a new repository
+
+5.) all members clone this repository
+
+6.) add a function to a folder called R and commit
+
+## Links
+
+[mbannert short primer on git](https://github.com/mbannert/bacon/tree/master/inst/slides/primer_on_git.Rmd)
+
+[Eric Sink Version Control by Example (git chapter)](http://ericsink.com/vcbe/)
+
+[Atlassian git tutorial](https://www.atlassian.com/git/tutorials/)
+
+[Official git tutorial](https://git-scm.com/docs/gittutorial)
+
+[Interactively try/learn git](https://try.github.io/levels/1/challenges/1)
+
+

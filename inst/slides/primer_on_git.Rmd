@@ -1,0 +1,363 @@
+---
+title: "Short Primer on Git"
+author: "Matthias Bannert"
+date: "15 Jan 2017"
+output: pdf_document
+---
+
+## What is git? 
+
+**git** is a version control software. The main purpose of version control 
+software is to track and manage versions of your source code during 
+development, release and production. 
+
+**git** is language agnostic, it can be used for versioning of all sort of
+text files. **git** is a console based program but its standing among software
+developers has lead to the integration of **git** into many development
+environments and text editors. Also, standalone clients with graphical user interfaces are available for all major operating systems. Even domain specific software such as MATLAB or R Studio ship with basic **git** integration. 
+Distributed version control with **git** has succeeded centralized
+version control systems such as Subversion (SVN) as the de facto standard.
+
+## Why use git (in academia)? 
+Version control has been an industry standard in software development for
+decades. The need to process larger datasets, ever increasing computational power have lead to a strong entanglement of empirical research with computational 
+statistics and data analysis. The complexity of a research task at hand or
+simply the duration of a project may well lead to a substantial amount of source
+code in various languages written by different collaborators. Hence researchers
+of many fields have started to adopt workflows and habits from professional software developers. For decades, version control has proven to be an inevitable part of the workflow when projects get complex and involve serious programming. In academia, version control is particularly useful when research needs to be reproducible or outlets such economic indicators need to be adapted steadily and maintained over a longer period of time. 
+
+## How to use git? 
+**git** may be used through its plain console client, through a click-and-point graphical user interface or in integrated fashion inside an integrated 
+development environment (IDE). The most basic way to use **git** is to use
+the git client which can be downloaded for free from:
+[https://git-scm.com/downloads](https://git-scm.com/downloads).
+
+In case you need visual support choose one of the following options to be
+added on top of **git**.
+
+### The basic console client 
+Once installed **git** can be used from the shell (command line) which is
+well known to Linux users and should be known to Mac users as well (terminal)
+as its part of the operating system. The Windows installation of **git** ships
+with a minimal shell called *git bash*. This shell can process all **git** commands and basic operating system level commands. 
+
+### Git GUIs
+Besides there is a plethora of clients that provide you with graphical user
+interfaces for **git**. [Source Tree](https://www.sourcetreeapp.com/) and
+[Github Desktop](https://desktop.github.com/) are freely available for
+Windows and Mac. Github Desktop is a considerably simpler but less powerful.
+I would recommend Github Desktop to beginners because it is the cleaner interface
+with fewer distracting seldom used options. Despite its name and github focus it also works with other providers, but also tries to login to github on startup, which can be annoying if you do not have a github account. The latest version of Atlassian's SourceTre is also a good and free choicee, but be aware of the extra
+options which are beyon the scope of this introduction. A more comprehensive list of GUI clients can be found on the [git webpage](https://git-scm.com/downloads/guis).
+
+### IDE / text editor integration
+As stated before professional software development IDEs ship with **git** 
+integration or provide special **git** plugins. Also IDEs used in academia  
+come with **git** support but are not as flexible and powerful as standalone
+tools or the basic **git** client itself. But not only full-blown IDEs like R
+Studio offer **git** support, good general purpose text editors like 
+[Sublime](https://www.sublimetext.com/) or [Atom](https://atom.io/) offer very good **git** plugins, too. 
+
+### Web based GUIs of remote repos
+Most of the time **git** is used in combination with a remote repository in
+order to backup your code and to be able to share your code and collaborate with 
+others. State-of-the-art **git** providers such as [github](https://github.com/), [bitbucket](https://bitbucket.org/) or [gitlab](https://about.gitlab.com/)
+provide a web based graphical user interface. These GUIs are suitable to browse 
+remote code and to track issues and comment on code, but are not designed to 
+commit extensively from local repositories. 
+
+### So which one should I use?
+At the end of the day it's all a matter of personal taste. That being said,
+personally, I avoid the IDE integrations of **git**, almost never use a **git**
+GUI and have a terminal window open at all times during development. If you 
+work with source code anyway why not learn a minimal amount of **git** syntax
+in addition? It's easy to learn because only very few commands are actually
+needed in practice and the command lin the most flexible way to use **git**.
+**git** is also well documented, so if you are ever in need of doing something
+more complex, sites such as
+[Atlassian git tutorial](https://www.atlassian.com/git/tutorials/)
+[Official git tutorial](https://git-scm.com/docs/gittutorial)
+[Interactively try/learn git](https://try.github.io/levels/1/challenges/1)
+
+are there to help. 
+
+## Getting Started
+The following sub sections will provide a bit of terminology as well as a *git syntax 101* for every day use. If all of this is news to you, please 
+browse through the following subsections first, before you try to 
+set **git** up and follow along. A bit of terminology and application 
+examples will improve your understanding of the **git** idea and help to set
+it up correctly. 
+
+### Local Repository 
+Every developer *i* has a local repository of project A's source code on her 
+local machine. A **git** repository is nothing else than a folder in which
+**git** was initialized (existing folder put under version control) or
+cloned (copied from an existing *remote repository*). Such a folder would
+typically contain text file format source code (uncompiled). 
+
+### Working Copy (checkout) 
+Every *local repository* has a working copy (also called checkout), which
+represents the currently active version of the controlled files. Many different
+versions of your code may be hidden in the *local repository*. The *working copy*
+is the version that is currently visible.
+
+### Remote Repository 
+Collaborating with others leverages the power of **git**. Besides providing an 
+additional backup hosted on a remote server, *remote repositories* are crucial 
+to sharing code with collaborators. Code that has previously been *committed* to
+the *local repository* can be *pushed* to the *remote repository*. All *pushed* 
+versions of source code can be *pulled* to collaborators' *local repositories*.
+
+### Remote Respository provider 
+Typically remote **git** servers are provided by specialized hosters. 
+[Github](https://github.com), [bitbucket](https://bitbucket.org/), [Gitlab](https://about.gitlab.com/) are the largest and most popular **git**
+hosters. All of these hosters provide free *remote repositories* for virtually
+unlimited open source use and limited private use. Larger instutions such as
+universities often provide their staff with a **git** service of their
+own[^1].
+
+[^1]: In case you plan to become a git provider for your own workgroup(s) or institute, [gitlab.com](https://about.gitlab.com/) can provide you with free
+server side software to provide your users with a *git* service with a smooth
+web interfaces. 
+
+### Git Workflow Basics
+First a local **git** repository is created by *cloning* from a remote source or
+*initializing* a repository in a local folder. This is a one time task. Make
+sure to not *clone* or initialize a **git** repository inside another **git**
+repository!
+
+After some text files are added and saved inside the local 
+repository folder, a single file or a group of files and folders can be
+**committed** as a VERSION to the *local repository*. 
+
+> This is a major conceptual difference compared to popular cloud 
+> storage like dropbox or GoogleDrive. While cloud storage syncs
+> specific folders and tries to keep them in sync and creates 
+> copies if need be, **git** allows you to archive a group
+> of files as a version and have multiple parallel version at the
+> same time. **git** workflows are always explicit about which 
+> version is productive master version. 
+
+In order to **commit** files to a version, all files that should be part of a new version need to be *staged* (added) for *commit*. Once one or more files are *staged* to become a version, we can *commit*files to this version in the *local repository*. Finally a **committed** version can be pushed to the **remote repository**. Code *pushed* to the *remote repository* can be *pulled* by any authorized developer *j*. If the *pulled* version does not conflict with the working copy on developer *j*'s machine it is automatically added and made the current working copy.
+
+### Git Syntax 101
+The following sections summarize the most common syntax needed along the line
+of the basic **git** workflow described above. 
+
+Type
+```{git}
+git init
+```
+to start a new repository inside a folder that does not already contain a 
+repository. Or clone a repository from elsewhere to start a new repository. A smooth way to start a **git** repository with a *remote repository* is to use the 
+Web GUI of the remote host to create a new repository. Usually, the GUI 
+automatically creates a clone statement for freshly created repositories. You can
+simply copy the statemen and paste it to your command line.
+
+```{git}
+git clone git@gitlab.ethz.ch:KOF/git-practice.git
+```
+
+Once you a have file in your folder that you want to put under version control, 
+save the file and *stage* it in order to be committed. For some non-empty file called, 
+
+```{git}
+git add readme.md
+```
+
+would add a file called *readme.md*. You can also add multiple files and folders at the same time.
+
+```{git}
+git add readme.md anotherfile.cpp somefolder/
+```
+adds all unstaged files in the folder for staging.
+
+```{git}
+git add .
+```
+
+
+```{git}
+git status
+```
+provides you with a status report, letting you know which files are untracked, staged (ready for commit) or tracked but not staged for commit. 
+
+```{git}
+git rm --cached anotherfile.cpp
+```
+removes a mistakenly staged file *anotherfile.cpp* from being *staged* and added to the next version. Once you are ready to add a new version, type
+
+```{git}
+git commit -m 'wrote an introduction'
+```
+to create a new version from the *working copy*. This newly archived version can contain all files of the working copy or a subset of the files. Make sure to add a meaningful *commit message* so find this version again, in case you want to go back to this version at a later stage.
+
+If you would like to share a committed version with your collaborators you need to push it to the remote server. Type
+```{git}
+git push origin master
+```
+to push the latest state of your *local repository* (not the working copy) to the remote server. Note that *origin master* indicates that the local master branch should be **pushed** to the remote's master. Branches? Well, yes. But let's be happy with a single master branch for the moment. The next sections will cover the most important things to know about branches: be able to move back and forth and distinguish development from production code.
+
+## Going back and forth
+Even though most operations by far will be related to adding new versions
+and *commiting* new code, the moment where you want to go back to a previous 
+*commit* will eventually come. When moving on to another version you'll need 
+to know which versions are available and what their identifier is. 
+
+```{git}
+git log
+```
+
+Gives you an overview of all *commit messages* and unique *commit* ids. This is exactly why we should think of **meaningful** *commit messages* when we add new versions. 20 different messages like 'minor bugfix', 'small change' or 'added some files' won't be of much help when we try to figure out to which state we want to go back. 
+
+### Branching
+Before we are ready hop around between versions, let me introduce the concept of *branches* first. It might sound like inconvenient, unnecessary overhead, but it's not. Have you thought about what should happen when you go back to a previous version and start to add a couple of *commits* again? Multiple parallel strands of reality? Reminds me of Back to the Future. And who wants to accidently wake up in a 2017 in which Biff's in charge? Long story short, we cannot allow a un-identified, nameless versions next to our initial timeline of *commits*. This is why we use *branches*. 
+
+> Branches can simply be understood as parallel timelines
+> which can be merged with other branches including
+> the master time line.
+
+There are two main reasons why to use branches:
+
+1) a new feature is being developed and we do not want to add unstable code
+to the main master timeline. Development of the new feature can happen in 
+explorative fashion while the master branch just evolves in stable fashion and continues to align minor fixes. 
+
+2) we want to back to a previous *commit* and start to *commit* again. Assume you are at your 8th commit go back the 4th *commit* and add two new *commits* from there on. What should happen to *commits* 5,6,7 and 8? This is why we need *branches*: the master branch containing the old timeline and a new fix or feature *branch* containing the new *commits*. 
+
+There are others reasons such as documentation branches or accompanying website which lives in *orphaned branches*, but this advanced use is beyond the scope of this introductory chapter.
+
+Creating a new *branch* is as simple as :
+
+```{git}
+git checkout -b name_of_the_new_branch
+```
+This will add a new *branch* out of the current working copy. Hence make sure all changes are *committed* before creating a new *branch*. The command will also switch to the new branch. All *commits* done from now on will be added to the new time line. You can always got back to the master branch by
+
+```{git}
+git checkout master
+```
+
+```{git}
+git branch
+```
+will show all available *branches* and denote the selected *branch*.
+
+### Merging branches
+After some development work on a feature our new feature is hopefully ripe to 
+become productive. Hence we are looking to merge the feature's *branch* to the
+master or any other *branch*. 
+```{git}
+git checkout master
+git merge --no-ff new-stuff
+```
+checks out the master *branch* and then starts to *merge* the *branch* named
+'new-stuff' into the master branch. The --no-ff flag makes sure no fast forwards are made and a seperate *commit* is created. Once the *merge* was successful.
+
+### Going back to a previous commit
+
+```{git}
+git checkout 0fe177f48b4af025dc6f6afecb88874cb62cf2d0
+```
+
+will set your *working copy* to the *commit* (version) with the id 
+'0fe177f48...' . Note that you can also use a substring of the lengthy
+id as long as it's unique. HELP! What have I done? I am in DETACHED HEAD state now!
+Admittedly, 'detached head state' does neither sound comfortable nor temporary, but it's all good. Don't panic, *git* is not a chicken. It's not even organic. In the case of **git** 'detached head' just means you set your working copy to a former *commit* (version) without putting it into another *branch*. You can look around and explore what the world was like in that version. You can always go back to your current state and leave the detached head mode by
+
+```{git}
+git checkout master
+```
+
+You can avoid 'detached head state' by immediately *checking out* a previous 
+*commit* to new branch.
+
+```{git}
+git checkout 0fe177f48b4 -b back-again
+```
+
+
+
+## A friendly word of advice - tips that make your live with git easier
+
+### Use a .gitignore file 
+
+### Production vs. Development Code
+Development is a continous process. More often than not, new features are requested and implemented, data change or bugs are found and fixed after an initial release.  This evolutionary nature holds as well for research projects. Particularly in projects with many collaborators and potentially more users than developers steady development requires some sort of release management. 
+
+In another words, there should be stable version of the code than can be used
+in production while other *branches* of development are more innovative, experimental and thus less stable. Once projects cause reverse dependencies 
+and have a user base, development and production code should not live in one single master branch. 
+
+
+### Git DON'Ts
+
+- Never store passwords in repositories. It's hard to really delete stuff in a repository, because 
+version control is designed to go back to old versions that still might contain the password. Plus, by pushing passwords to remote server that get distributed all over the place in no time. 
+
+- do not store data or binary files in your repository. Version control is for source code not for data. Again, think of privacy: data will be distributed over remote repository. Unlike text files, binary files cannot really be tracked well and it's hard to disentangle what changed from one version to another.
+
+### Potential hurdle for beginners: Key Pair Authentication
+I found the need to 'authenticate like a hacker' to be one of the higher entrance
+barriers to academic researchers when getting started with a professional 
+version control system. So what's so special about the way hackers make sure
+they are who they prentend to be (authenticate)?
+
+While the rest of the world still uses a lot of username / password combinations,
+developers tend to use a pair of keys (essentially files with a ton of characters)
+to authenticate. There's a public key and private key. While you should keep the
+private key to yourself (and protect it with a password in case it gets stolen), 
+you share your public key deliberately with services you intend to use. 
+
+In the case of git you share your public key with the remote hoster (usually
+you can just c&p it to the providers web interface) and keep your private key
+where your local git finds it. When actually triggering the action that 
+requests access you will be asked for your private key's passwords. Where you
+want this extra password depends on your security needs and your degree of laziness. 
+Without a password the authentication itself wouldn't change, the passwords buys you
+time to let the hoster know they should remove your public key. This is 
+relevant for physically and virtually stolen private key files. 
+
+**So how do I get such a private / public key pair?**
+Well, github provides a pretty general manual how to generate key pairs, which 
+also applies for other providers as well: 
+[Github Tutorial: Generate Key Pairs](https://help.github.com/articles/connecting-to-github-with-ssh/)
+
+While the tutorial is perfectly fine, there is another option that might be
+attractive to academic researchers who work with R Studio. Simply go to
+Tools -> Global Options -> Git/SVN and select and hit create RSA key. Note that
+the menus are arranged slightly different across operating systems. But don't worry:
+it's easy to find. Just try to find preferences or global options and Git/SVN, then just
+hit view RSA key in order to obtain the public key and paste the public key
+to your host's SSH key field. The SSH key is typically located somewhere in your user profile settings. 
+![create key in R Studio](rstudio_RSA.png)
+
+## Git FAQ
+Let's collect questions here!
+
+## References
+[Eric Sink: Version Control by Example](http://ericsink.com/vcbe/)
+[Download git](https://git-scm.com/downloads)
+[Source Tree](https://www.sourcetreeapp.com/) 
+[Github Desktop](https://desktop.github.com/)
+[git GUI overview](https://git-scm.com/downloads/guis)
+[Sublime Text Editor](https://www.sublimetext.com/)
+[Atom Text Editor](https://atom.io/)
+[github](https://github.com/)
+[bitbucket](https://bitbucket.org/)
+[gitlab](https://about.gitlab.com/)
+[Atlassian git tutorial](https://www.atlassian.com/git/tutorials/)
+[Official git tutorial](https://git-scm.com/docs/gittutorial)
+[Interactively try/learn git](https://try.github.io/levels/1/challenges/1)
+[Github Tutorial: Generate Key Pairs](https://help.github.com/articles/connecting-to-github-with-ssh/)
+[Broman git Tutorial](http://kbroman.org/github_tutorial/)
+[Hadley on git](http://r-pkgs.had.co.nz/git.html)
+
+
+
+
+
+
+
+
+
