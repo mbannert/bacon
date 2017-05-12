@@ -1,5 +1,6 @@
 ---
-title: "Let's Program"
+title: "Exploring R"
+subtitle: "Applied Introduction to Programming "
 author: "Matthias Bannert"
 date: "28 Apr 2017"
 output: ioslides_presentation
@@ -9,6 +10,36 @@ widescreen: true
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+
+## Overview
+
+- warmup
+- getting comfortable with your environment
+- R programming tipps & conventions
+- programming and data
+- practice / advanced concepts 
+- how to get help
+
+## Declarative Fraction
+```{r,echo=F,message=F,fig.width=10}
+library(ggplot2)
+library(reshape2)
+library(likert)
+library(intsvy)
+
+# variable ST62Q13 codes familiarity with 'Declarative Fraction'
+#tab <- pisa.table(variable="ST62Q13", by="ST04Q01", data=student2012)
+load("../../data/pisa_tabbed.RData")
+ptab <- acast(tab, ST04Q01~ST62Q13, value.var="Percentage")
+ddat <- data.frame(Item=rownames(ptab), ptab)
+
+# plot it with the likert package
+likert.bar.plot(likert(summary=ddat),
+                center=2) + ggtitle("Declarative Fraction") + theme_bw()
+```
+Source: Pisa study 2012.
+
+
 ## Warmup
 
 - what's a *vector*,*matrix*, *data.frame*, *list*?
@@ -65,8 +96,40 @@ doUseLessStuff <- function(a,b,x){
 Run a function
 ```{r,echo=T}
 doUseLessStuff(10,20,3)
-doUseLessStuff(10,30,3)
 ```
+
+=> Let's define our own functions!
+
+## Document a function with roxygen2
+
+```{r,eval=F,echo=T}
+#' Mickey Mouse computation
+#' 
+#' Sum of a and b multiplied by x. 
+#' 
+#' @author Matthias Bannert
+#' @param a numeric vector, first element of the sum
+#' @param b numeric vector, second element of the sum
+#' @param x numeric multiplier
+#' @examples doUselessStuff(10,20,10)
+#' 
+#' @return numeric 
+#' @export 
+doUseLessStuff <- function(a,b,x){
+  (a + b)*x
+}
+```
+
+## Understanding by doing 
+
+Explore the basics of scoping
+- try to define objects inside and outside of functions
+- use both types of objects outside of functions
+- explain potential problems
+
+The not so basic answer:
+[How R searches and finds stuff](http://blog.obeautifulcode.com/R/How-R-Searches-And-Finds-Stuff/)
+
 
 ## Development and Debugging 101
 
@@ -74,6 +137,27 @@ doUseLessStuff(10,30,3)
 - turn script to function
 - make sure to understand scoping (global variables)
 - use debugger / or breakpoints
+
+## How to get help: sources
+
+- ?functionName
+- vignettes
+- [Hadley Wickham ggplot2 documentation](http://ggplot2.tidyverse.org/reference/)
+- [R Bloggers](https://www.r-bloggers.com)
+- [R Bloggers Tutorials for learning R](https://www.r-bloggers.com/how-to-learn-r-2/)
+- [Stackoverflow tagged R](http://stackoverflow.com/questions/tagged/r)
+- [R mailing lists](https://www.r-project.org/mail.html)
+
+
+## How to set up a reproducible example
+
+- data: standard dataset, simulation 
+- be minimalistic: limit dependencies
+- (system) info 
+- **dput(dataObject)**
+
+See also: [Stackoverflow How to set up ... ](http://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example)
+
 
 ## Programming and data 
 
@@ -106,44 +190,7 @@ doUseLessStuff(10,30,3)
 
 
 
-## How to get help: sources
 
-- ?functionName
-- [R Bloggers](https://www.r-bloggers.com)
-- [R Bloggers Tutorials for learning R](https://www.r-bloggers.com/how-to-learn-r-2/)
-- [Stackoverflow tagged R](http://stackoverflow.com/questions/tagged/r)
-- [R mailing lists](https://www.r-project.org/mail.html)
-- [Hadley Wickham ggplot2 documentation](http://ggplot2.tidyverse.org/reference/)
-
-## How to set up a reproducible example
-
-- data: standard dataset, simulation 
-- be minimalistic: limit dependencies
-- (system) info 
-- **dput(dataObject)**
-
-See also: [Stackoverflow How to set up ... ](http://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example)
-
-
-## Document a function with roxygen2
-
-```{r,eval=F,echo=T}
-#' Mickey Mouse computation
-#' 
-#' Sum of a and b multiplied by x. 
-#' 
-#' @author Matthias Bannert
-#' @param a numeric vector, first element of the sum
-#' @param b numeric vector, second element of the sum
-#' @param x numeric multiplier
-#' @examples doUselessStuff(10,20,10)
-#' 
-#' @return numeric 
-#' @export 
-doUseLessStuff <- function(a,b,x){
-  (a + b)*x
-}
-```
 
 ## Git Version Control 101
 

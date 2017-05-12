@@ -1,0 +1,114 @@
+---
+title: "Exploring Graphics"
+output: html_notebook
+---
+
+# Base R
+
+```{r}
+load("../../data/mlb.RData")
+head(mlb)
+```
+
+## Scatter
+```{r}
+hist(mlb$height)
+```
+
+
+## histogram
+
+```{r}
+hist(mlb$Age)
+```
+
+
+
+
+## ggplot2
+```{r}
+library(ggplot2)
+g <- ggplot(data=mlb)
+g + geom_bar(aes(x = height)) +
+  theme_bw() + 
+  labs(title = "Player size")
+```
+
+```{r}
+g + geom_point(aes(x = height,
+                   y = weight,
+                   col = Position)
+               ) +
+  labs(title = "Size vs. weight")
+```
+
+## Interactive (plotly)
+
+```{r}
+library(plotly)
+p <- plot_ly(mlb,
+  x = ~height,
+  y = ~weight,
+  name = "SF Zoo",
+  type = "scatter"
+)
+p
+
+```
+
+## Interactive (dygraphs)
+<!-- https://rstudio.github.io/dygraphs/gallery-custom-plotters.html -->
+
+```{r}
+baro_ch <- read.csv2("https://datenservice.kof.ethz.ch/api/ts?keys=kofbarometer&mime=csv",
+                     header=T,sep=",",
+                     stringsAsFactors = F,
+                     dec=".")
+class(baro_ch)
+head(baro_ch)
+str(baro_ch)
+baro_ts <- ts(baro_ch$kofbarometer,
+              start(1991,1),
+              frequency = 12)
+library(dygraphs)
+dygraph(baro_ts, main = "KOF Barometer") %>% 
+  dyRangeSelector()
+```
+**Hacking dygraphs (Advanced Example)**
+```{r}
+library(dygraphs)
+dyBarChart <- function(dygraph) {
+  dyPlotter(dygraph = dygraph,
+            name = "BarChart",
+            path = system.file("examples/plotters/barchart.js",
+                               package = "dygraphs"))
+}
+
+dygraph(baro_ts, main = "KOF Barometer") %>% 
+  dyRangeSelector() %>%
+  dyBarChart()
+
+
+```
+
+
+
+
+
+
+## Other chart types ...
+```{r}
+library(fmsb)
+# all data taken from basketball-reference.com
+load("../../data/curry_vs_jordan.RData")
+
+tcomp <- data.frame(t(comp))
+
+par(mfrow=c(1,2))
+radarchart(rbind(rep(100,7),rep(0,7),tcomp[1,-c(6,7)]),
+           pdensity=40,title = "Steph Curry Scorer Profile")
+radarchart(rbind(rep(100,7),rep(0,7),tcomp[2,-c(6,7)]),
+           pdensity=40,title = "Michael Jordan 93 Scorer Profile")
+```
+
+
