@@ -1,12 +1,14 @@
 ---
 title: "Exploring Graphics"
-output: html_notebook
+output:
+  html_document: default
+  html_notebook: default
 ---
 
 # Base R
 
 ```{r}
-load("../../data/mlb.RData")
+mlb <- read.csv2("../../data/mlb.csv")
 head(mlb)
 ```
 
@@ -95,20 +97,215 @@ dygraph(baro_ts, main = "KOF Barometer") %>%
 
 
 
+## more examples
+We use the big5 dataset from personality-testing.info again.
+We limit the dataset to a few countries only for illustration purposes. 
 
-## Other chart types ...
 ```{r}
-library(fmsb)
-# all data taken from basketball-reference.com
-load("../../data/curry_vs_jordan.RData")
+big5 <- read.csv2("../../data/big5.csv",sep="\t")
 
-tcomp <- data.frame(t(comp))
+# let's select some countries... 
+# mention the :: syntax
+big5$country <- plyr::revalue(big5$country,
+              c("US" = "USA",
+                "DE" = "Germany",
+                "CA" = "Canada",
+                "CN" = "China",
+                "ES" = "Spain",
+                "FR" = "France")
+)
 
-par(mfrow=c(1,2))
-radarchart(rbind(rep(100,7),rep(0,7),tcomp[1,-c(6,7)]),
-           pdensity=40,title = "Steph Curry Scorer Profile")
-radarchart(rbind(rep(100,7),rep(0,7),tcomp[2,-c(6,7)]),
-           pdensity=40,title = "Michael Jordan 93 Scorer Profile")
+big5_sub <- big5[big5$country %in% c("USA","Germany","Canada"),]
+big5_sub <- big5_sub[big5_sub$gender %in% c(1,2),]
+
+
 ```
+
+
+Let's explore some of the vizualiation that Hadley Wickham's ggplot2 provides. Note that we create a ggplot object first and 
+use varying geoms with the same object later. 
+
+
+```{r}
+require(ggplot2)
+countries <- ggplot(data = big5_sub) 
+
+# the point geom
+countries + geom_point(aes(country,age))
+
+# maybe we should remove ugly outliers...
+big5_sub <- subset(big5_sub,age < 120)
+countries <- ggplot(data = big5_sub) 
+
+# the point geom
+countries + geom_point(aes(country,age))
+```
+
+Again we can use the **countries** object and 
+combine it with other geoms.
+
+```{r}
+# the layer by layer thing... 
+c_h <- countries +
+  geom_histogram(aes(x = age,
+                     y = ..density..),
+                 binwidth=1,
+                 colour="black",
+                 fill="white")
+c_h
+# add a density
+c_h_d  <- c_h +
+  geom_density(aes(x = age),
+               alpha = .2,fill = "green")
+c_h_d
+
+c_h_d_m <- c_h_d + 
+  geom_vline(aes(xintercept = mean(age, na.rm=T)),
+             color="red", linetype="dashed", size=1)
+c_h_d_m
+```
+
+
+# Task 1
+Create a density plot withouth the histogram but with the x-intercept. Use a dotted blue line for the intercept! 
+
+
+# The Bar Geom
+
+```{r}
+country_bar <- countries +
+  geom_bar(aes(x = as.factor(E1),fill = factor(race))) +
+  # scales free just means that scales can very across
+  # facets, default is fixed
+  facet_wrap(~ country,scales = "free") + 
+  scale_fill_grey()
+
+country_bar
+```
+
+
+
+# Boxplot geom
+Note the importance of factor() declaration here. 
+
+```{r}
+country_box <- countries + 
+  geom_boxplot(aes(x = factor(country),
+                             y = age,
+                   fill = factor(gender)))
+
+country_box
+
+```
+
+# Task2
+Change country from x aesthetic to facet and plot the same boxplot.
+
+
+# Aggregation of Data using dplyr
+**dplyr** is another R package by Hadley Wickham. It's the high performance follow-up of **plyr**. Also **dplyr** provides a more intuitive interface and reminds of query languages. The following is just meant to be an example - by no means it as introduction to dplyr. 
+
+```{r}
+require(dplyr)
+aggr <- na.omit(summarize(group_by(big5,country),
+                          E1_mean = mean(E1)))
+
+# alternative syntax: 
+big5 %>% 
+  group_by(country) %>%
+  summarize(E1_mean = mean(E1))
+
+
+# use the revalue function from plyr.
+# note that standard plyr can cause 
+# trouble with dplyr sometimes, thus
+# we only use ::
+aggr$country <- plyr::revalue(aggr$country,
+              c("US" = "USA",
+                "DE" = "Germany",
+                "CA" = "Canada",
+                "CN" = "China",
+                "ES" = "Spain",
+                "FR" = "France")
+              )
+
+
+# subset to a dataset that only contains a few country with data
+cs <- subset(aggr, country %in% c("USA","Germany","Canada",
+                                  "China","Spain","France"))
+cs$country <- factor(cs$country)
+
+```
+
+Now let's create a map of the world... 
+Once we have done so, we need to merge our psychometric information to the map.
+
+
+```{r}
+# use the map_data function to have a standard 
+# world map data.frame
+world_map <- map_data("world")
+
+data_map <- merge(world_map,cs,by.x = "region",
+                  by.y = "country")
+
+data_map_full <- merge(aggr,
+                       world_map,
+                       by.x = "country",
+                       by.y = "region",all = T )
+
+
+
+# built a plot layer by layer
+g <- ggplot(data_map_full,aes(map_id = country)) +
+  geom_map(map = world_map,color = "white") +
+  geom_map(aes(fill = E1_mean), map = world_map,data = cs) +
+  scale_fill_gradient(low="red", high="blue") +
+  expand_limits(x = world_map$long, y = world_map$lat)
+
+g
+
+
+```
+
+# Task3 
+Execute the plot generated in object g line by line and explain what happens. 
+
+# Factor Analysis in R
+
+
+```{r}
+items <- grep("^[A-Z]",names(big5),value = T)
+
+test <- big5[,items]
+
+test <- na.omit(test)
+
+out <- factanal(test,5)
+
+ei <- eigen(cor(test))
+plot(ei$values,type = "b")
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
