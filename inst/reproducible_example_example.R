@@ -8,7 +8,13 @@ mlb_min <- structure(list(Name = c("Adam_Donachie", "Paul_Bako", "Ramon_Hernande
           class = "data.frame", row.names = c(NA, 
                                               6L))
 
-# conversion function 
+#' conversion function 
+#' 
+#' this is my description
+#' 
+#' @param inches numeric US inches 
+#' @author alle
+#' @export
 inchToCm <- function(inches){
   inches*2.54
 }
